@@ -17,6 +17,7 @@
 		5DA90E581ACC0FA60002C864 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DA90E571ACC0FA60002C864 /* Images.xcassets */; };
 		5DA90E5B1ACC0FA60002C864 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA90E591ACC0FA60002C864 /* LaunchScreen.xib */; };
 		5DA90E671ACC0FA60002C864 /* App42InteractivePushTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA90E661ACC0FA60002C864 /* App42InteractivePushTests.m */; };
+		5DE08F9C1AD3BB880017B2FB /* App42Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = 5DE08F9B1AD3BB880017B2FB /* App42Constants.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		5DA90E601ACC0FA60002C864 /* App42InteractivePushTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = App42InteractivePushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DA90E651ACC0FA60002C864 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DA90E661ACC0FA60002C864 /* App42InteractivePushTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = App42InteractivePushTests.m; sourceTree = "<group>"; };
+		5DE08F9B1AD3BB880017B2FB /* App42Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App42Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			children = (
 				5DA90E4E1ACC0FA50002C864 /* AppDelegate.h */,
 				5DA90E4F1ACC0FA50002C864 /* AppDelegate.m */,
+				5DE08F9B1AD3BB880017B2FB /* App42Constants.h */,
 				5DA90E511ACC0FA50002C864 /* ViewController.h */,
 				5DA90E521ACC0FA50002C864 /* ViewController.m */,
 				5DA90E541ACC0FA60002C864 /* Main.storyboard */,
@@ -180,6 +183,11 @@
 				TargetAttributes = {
 					5DA90E461ACC0FA50002C864 = {
 						CreatedOnToolsVersion = 6.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					5DA90E5F1ACC0FA60002C864 = {
 						CreatedOnToolsVersion = 6.2;
@@ -234,6 +242,7 @@
 				5DA90E531ACC0FA50002C864 /* ViewController.m in Sources */,
 				5DA90E501ACC0FA50002C864 /* AppDelegate.m in Sources */,
 				5DA90E4D1ACC0FA50002C864 /* main.m in Sources */,
+				5DE08F9C1AD3BB880017B2FB /* App42Constants.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +301,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -312,6 +321,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "1f37149e-3986-4c40-a0a0-744ea576da01";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -334,7 +344,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -347,6 +357,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "1f37149e-3986-4c40-a0a0-744ea576da01";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -357,6 +368,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -364,6 +376,7 @@
 				INFOPLIST_FILE = App42InteractivePush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1f37149e-3986-4c40-a0a0-744ea576da01";
 			};
 			name = Debug;
 		};
@@ -371,6 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -378,6 +392,7 @@
 				INFOPLIST_FILE = App42InteractivePush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1f37149e-3986-4c40-a0a0-744ea576da01";
 			};
 			name = Release;
 		};

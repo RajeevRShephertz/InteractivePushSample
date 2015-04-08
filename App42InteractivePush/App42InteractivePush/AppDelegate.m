@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Shephertz_App42_iOS_API/Shephertz_App42_iOS_API.h>
+#import "App42Constants.h"
 
 @interface AppDelegate ()
 
@@ -17,20 +19,71 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    /**
+     * Initialize App42API
+     */
+    [App42API initializeWithAPIKey:APP42_APP_KEY andSecretKey:APP42_SECRET_KEY];
+    [App42API enableApp42Trace:YES];
+    
+    /**
+     * Register for your device for user notification settings
+     */
+    [self registerForPush:application];
+    
     return YES;
 }
 
 
 -(void)registerForPush:(UIApplication *)application
 {
-    UIUserNotificationType notificationType = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:notificationType categories:nil];
-    [application registerUserNotificationSettings:notificationSettings];
+
+UIUserNotificationType notificationType = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
+UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:notificationType categories:[NSSet setWithObject:[self createCategory]]];
+[application registerUserNotificationSettings:notificationSettings];
 }
 
--(void)getCategories
+-(UIMutableUserNotificationCategory*)createCategory
 {
+    //Creating Action 1
+    UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
+    action1.identifier = ACTION1_IDENTIFIER;
+    action1.title = @"Action1";
+    action1.activationMode = UIUserNotificationActivationModeBackground;
+    action1.authenticationRequired = NO;
+    action1.destructive = NO;
     
+    //Creating Action 2
+    UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];
+    action2.identifier = ACTION2_IDENTIFIER;
+    action2.title = @"Action2";
+    action2.activationMode = UIUserNotificationActivationModeBackground;
+    action2.authenticationRequired = NO;
+    action2.destructive = NO;
+    
+    //Creating Action 3
+    UIMutableUserNotificationAction *action3 = [[UIMutableUserNotificationAction alloc] init];
+    action3.identifier = ACTION3_IDENTIFIER;
+    action3.title = @"Action3";
+    action3.activationMode = UIUserNotificationActivationModeBackground;
+    action3.authenticationRequired = NO;
+    action3.destructive = NO;
+    
+    //Creating Action 4
+    UIMutableUserNotificationAction *action4 = [[UIMutableUserNotificationAction alloc] init];
+    action4.identifier = ACTION4_IDENTIFIER;
+    action4.title = @"Action4";
+    action4.activationMode = UIUserNotificationActivationModeBackground;
+    action4.authenticationRequired = NO;
+    action4.destructive = NO;
+    
+    //Creating Category
+    UIMutableUserNotificationCategory *interactiveCategory = [[UIMutableUserNotificationCategory alloc] init];
+    interactiveCategory.identifier = INTERACTIVE_CATEGORY;
+    [interactiveCategory setActions:@[action1,action2,action3] forContext:UIUserNotificationActionContextDefault];
+    [interactiveCategory setActions:@[action1,action2] forContext:UIUserNotificationActionContextMinimal];
+    
+    return interactiveCategory;
 }
 
 
@@ -38,23 +91,80 @@
 
 -(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    
+    /**
+     * Register for your device for remote notifications
+     */
+    [application registerForRemoteNotifications];
 }
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    NSLog(@"My token is: %@", deviceToken);
+    // Prepare the Device Token for Registration (remove spaces and < >)
+    self.devToken = [[[[deviceToken description]
+                            stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                           stringByReplacingOccurrencesOfString:@">" withString:@""]
+                          stringByReplacingOccurrencesOfString: @" " withString: @""];
     
+    NSLog(@"My token is: %@", self.devToken);
+    [self registerYourDeviceToApp42Cloud];
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    
+    NSLog(@"%s ..error=%@",__FUNCTION__,error);
+    [self showAlert:[error localizedDescription]];
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
+    NSLog(@"%s ..userInfo=%@",__FUNCTION__,userInfo);
 }
+
+
+-(void)registerYourDeviceToApp42Cloud
+{
+    PushNotificationService *pushnotificationService = [App42API buildPushService];
+    [pushnotificationService registerDeviceToken:self.devToken withUser:USER_NAME completionBlock:^(BOOL success, id responseObj, App42Exception *exception) {
+        if (success) {
+            [self showAlert:@"Your Device is registered successfully to App42Cloud!"];
+        }
+        else
+        {
+            [self showAlert:exception.reason];
+        }
+    }];
+}
+
+-(void)showAlert:(NSString*)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alert show];
+}
+
+#pragma mark- Push Action Handling
+
+-(void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
+{
+    NSString *categoryIdentifier = [[userInfo objectForKey:@"aps"] objectForKey:@"category"];
+    if ([categoryIdentifier isEqualToString:INTERACTIVE_CATEGORY])
+    {
+        if ([identifier isEqualToString:ACTION1_IDENTIFIER])
+        {
+            NSLog(@"ACTION1 triggered");
+        }
+        else if ([identifier isEqualToString:ACTION2_IDENTIFIER])
+        {
+            NSLog(@"ACTION2 triggered");
+        }
+        else if ([identifier isEqualToString:ACTION3_IDENTIFIER])
+        {
+            NSLog(@"ACTION3 triggered");
+        }
+    }
+    completionHandler();
+}
+
 
 #pragma mark- App State Delegates
 
