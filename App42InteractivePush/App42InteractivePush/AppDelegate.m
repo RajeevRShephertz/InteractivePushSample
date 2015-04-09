@@ -80,7 +80,7 @@ UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings s
     //Creating Category
     UIMutableUserNotificationCategory *interactiveCategory = [[UIMutableUserNotificationCategory alloc] init];
     interactiveCategory.identifier = INTERACTIVE_CATEGORY;
-    [interactiveCategory setActions:@[action1,action2,action3] forContext:UIUserNotificationActionContextDefault];
+    [interactiveCategory setActions:@[action1,action2,action3,action4] forContext:UIUserNotificationActionContextDefault];
     [interactiveCategory setActions:@[action1,action2] forContext:UIUserNotificationActionContextMinimal];
     
     return interactiveCategory;
@@ -160,6 +160,10 @@ UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings s
         else if ([identifier isEqualToString:ACTION3_IDENTIFIER])
         {
             NSLog(@"ACTION3 triggered");
+        }
+        else if ([identifier isEqualToString:ACTION4_IDENTIFIER])
+        {
+            NSLog(@"ACTION4 triggered");
         }
     }
     completionHandler();
